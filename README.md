@@ -17,7 +17,8 @@ Instituição: IFPI - Campus Picos
 O programa não está concentrado em um único arquivo. Cada parte possui uma responsabilidade:
 
 ```text
-gerenciador_tarefas_modular/
+gerenciador_tarefas/
+├── Relatorio_SBC/
 ├── include/
 │   ├── cadastro.h
 │   ├── consultas.h
@@ -39,9 +40,7 @@ gerenciador_tarefas_modular/
 │   ├── pilha.c          # implementação da pilha
 │   ├── planejamento.c   # fila semanal, status e reabertura
 │   └── tarefa.c         # modelo e funções auxiliares da tarefa
-├── docs/
-├── .vscode/             # configuração para compilar o projeto completo
-├── compilar_windows.bat
+├── .gitignore
 ├── Makefile
 └── README.md
 ```
@@ -55,135 +54,71 @@ gerenciador_tarefas_modular/
 - Bubble Sort;
 - Alocação dinâmica com `malloc` e liberação com `free`.
 
-## Compilação
+## Sobre os arquivos executáveis
 
-### No VS Code do Windows
+O arquivo `gerenciador_tarefas.exe` é gerado no Windows e funciona somente nesse sistema. No Linux e no macOS, não se utiliza esse arquivo.
 
-Não use a opção **C/C++: gcc.exe arquivo de build ativo**, pois ela compila somente o arquivo aberto. Como este projeto possui vários módulos, faça assim:
+Nesses sistemas, o mesmo código-fonte deve ser compilado novamente. O executável gerado recebe o nome `gerenciador_tarefas`, sem a extensão `.exe`.
 
-1. Abra a pasta `gerenciador_tarefas_modular` no VS Code;
-2. Pressione `Ctrl + Shift + B`;
-3. Escolha `Compilar projeto completo`;
-4. Depois da compilação, abra o terminal e execute:
+```text
+gerenciador_tarefas.exe   # executável do Windows
+gerenciador_tarefas       # executável do Linux ou macOS
+```
+
+Portanto, o código das pastas `src` e `include` é o mesmo nos três sistemas. O que muda é apenas o executável gerado em cada sistema operacional.
+
+## Compilação e execução
+
+Os comandos devem ser executados no terminal aberto na pasta principal do projeto, onde estão as pastas `src` e `include`.
+
+### Windows
+
+Como o projeto está dividido em módulos, não utilize a opção **C/C++: gcc.exe arquivo de build ativo**, pois ela compila somente o arquivo que está aberto.
+
+Para compilar todos os módulos pelo PowerShell, execute:
+
+```powershell
+& "C:\msys64\ucrt64\bin\gcc.exe" -Iinclude -std=c11 -Wall -Wextra -Wpedantic (Get-ChildItem .\src\*.c).FullName -o .\gerenciador_tarefas.exe
+```
+
+Depois execute o programa:
 
 ```powershell
 .\gerenciador_tarefas.exe
 ```
 
-Também é possível executar o arquivo `compilar_windows.bat`, que utiliza o GCC instalado em `C:\msys64\ucrt64\bin\gcc.exe`.
+Se o arquivo `gerenciador_tarefas.exe` já tiver sido gerado anteriormente, basta executar o segundo comando.
 
-### No Linux
+### Linux
 
-As instruções abaixo funcionam no Ubuntu, Debian, Linux Mint e outras distribuições baseadas no Debian.
-
-1. Abra o terminal na pasta do projeto. Se o terminal estiver em outro local, entre na pasta com:
-
-```bash
-cd caminho/para/gerenciador_tarefas_modular
-```
-
-2. Instale o GCC e o Make, caso ainda não estejam instalados:
-
-```bash
-sudo apt update
-sudo apt install build-essential
-```
-
-3. Verifique se as ferramentas estão disponíveis:
-
-```bash
-gcc --version
-make --version
-```
-
-4. Compile todos os módulos:
-
-```bash
-make
-```
-
-5. Execute o programa:
-
-```bash
-./gerenciador_tarefas
-```
-
-Para apagar o executável e fazer uma nova compilação completa:
-
-```bash
-make clean
-make
-```
-
-Se aparecer a mensagem `Permissão negada` ao executar, use:
-
-```bash
-chmod +x gerenciador_tarefas
-./gerenciador_tarefas
-```
-
-### No macOS
-
-1. Abra o aplicativo Terminal e entre na pasta do projeto:
-
-```bash
-cd caminho/para/gerenciador_tarefas_modular
-```
-
-2. Instale as ferramentas de linha de comando da Apple, caso ainda não estejam instaladas:
-
-```bash
-xcode-select --install
-```
-
-Uma janela do sistema será exibida. Confirme a instalação e aguarde a conclusão.
-
-3. Verifique o compilador e o Make:
-
-```bash
-clang --version
-make --version
-```
-
-4. Compile o projeto:
-
-```bash
-make
-```
-
-5. Execute o programa:
-
-```bash
-./gerenciador_tarefas
-```
-
-Para recompilar tudo:
-
-```bash
-make clean
-make
-```
-
-### Compilação manual no Linux, macOS ou Windows
-
-Se preferir não usar o Makefile, compile todos os arquivos diretamente:
+Para compilar todos os módulos, execute:
 
 ```bash
 gcc -Iinclude -std=c11 -Wall -Wextra -Wpedantic src/*.c -o gerenciador_tarefas
 ```
 
-Depois execute:
+Depois execute o programa:
 
 ```bash
 ./gerenciador_tarefas
 ```
 
-## Execução no Windows
+Após a primeira compilação, enquanto o código não for modificado, basta utilizar `./gerenciador_tarefas` para abrir o programa novamente.
 
-Depois de compilar pelo VS Code ou pelo arquivo `compilar_windows.bat`, execute:
+### macOS
 
-```powershell
-.\gerenciador_tarefas.exe
+Para compilar todos os módulos, execute:
+
+```bash
+clang -Iinclude -std=c11 -Wall -Wextra -Wpedantic src/*.c -o gerenciador_tarefas
 ```
+
+Depois execute o programa:
+
+```bash
+./gerenciador_tarefas
+```
+
+Após a primeira compilação, enquanto o código não for modificado, basta utilizar `./gerenciador_tarefas` para abrir o programa novamente.
 
 Ao escolher a opção `0`, o programa libera os nós restantes da lista, da fila e da pilha antes de encerrar.
