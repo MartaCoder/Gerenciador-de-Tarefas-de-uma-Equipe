@@ -61,7 +61,7 @@ gerenciador_tarefas_modular/
 
 Não use a opção **C/C++: gcc.exe arquivo de build ativo**, pois ela compila somente o arquivo aberto. Como este projeto possui vários módulos, faça assim:
 
-1. Abra a pasta `gerenciador_tarefas_modular` no VS Code;
+1. Abra a pasta `gerenciador_tarefas` no VS Code;
 2. Pressione `Ctrl + Shift + B`;
 3. Escolha `Compilar projeto completo`;
 4. Depois da compilação, abra o terminal e execute:
