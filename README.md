@@ -164,7 +164,7 @@ make clean
 make
 ```
 
-### Compilação manual no Linux ou macOS
+### Compilação manual no Linux, macOS ou Windows
 
 Se preferir não usar o Makefile, compile todos os arquivos diretamente:
 
