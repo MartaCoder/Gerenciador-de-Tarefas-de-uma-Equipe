@@ -17,7 +17,7 @@ Instituição: IFPI - Campus Picos
 O programa não está concentrado em um único arquivo. Cada parte possui uma responsabilidade:
 
 ```text
-gerenciador_tarefas/
+Gerenciador-de-Tarefas-de-uma-Equipe/
 ├── Relatorio_SBC/
 ├── include/
 │   ├── cadastro.h
