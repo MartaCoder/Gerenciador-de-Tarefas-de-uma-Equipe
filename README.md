@@ -17,7 +17,7 @@ Instituição: IFPI - Campus Picos
 O programa não está concentrado em um único arquivo. Cada parte possui uma responsabilidade:
 
 ```text
-gerenciador_tarefas/
+gerenciador_tarefas_modular/
 ├── include/
 │   ├── cadastro.h
 │   ├── consultas.h
@@ -40,6 +40,8 @@ gerenciador_tarefas/
 │   ├── planejamento.c   # fila semanal, status e reabertura
 │   └── tarefa.c         # modelo e funções auxiliares da tarefa
 ├── docs/
+├── .vscode/             # configuração para compilar o projeto completo
+├── compilar_windows.bat
 ├── Makefile
 └── README.md
 ```
@@ -55,27 +57,130 @@ gerenciador_tarefas/
 
 ## Compilação
 
-Com Make:
+### No VS Code do Windows
+
+Não use a opção **C/C++: gcc.exe arquivo de build ativo**, pois ela compila somente o arquivo aberto. Como este projeto possui vários módulos, faça assim:
+
+1. Abra a pasta `gerenciador_tarefas_modular` no VS Code;
+2. Pressione `Ctrl + Shift + B`;
+3. Escolha `Compilar projeto completo`;
+4. Depois da compilação, abra o terminal e execute:
+
+```powershell
+.\gerenciador_tarefas.exe
+```
+
+Também é possível executar o arquivo `compilar_windows.bat`, que utiliza o GCC instalado em `C:\msys64\ucrt64\bin\gcc.exe`.
+
+### No Linux
+
+As instruções abaixo funcionam no Ubuntu, Debian, Linux Mint e outras distribuições baseadas no Debian.
+
+1. Abra o terminal na pasta do projeto. Se o terminal estiver em outro local, entre na pasta com:
+
+```bash
+cd caminho/para/gerenciador_tarefas_modular
+```
+
+2. Instale o GCC e o Make, caso ainda não estejam instalados:
+
+```bash
+sudo apt update
+sudo apt install build-essential
+```
+
+3. Verifique se as ferramentas estão disponíveis:
+
+```bash
+gcc --version
+make --version
+```
+
+4. Compile todos os módulos:
 
 ```bash
 make
 ```
 
-Ou diretamente com GCC:
-
-```bash
-
-```
-
-## Execução
-
-Linux ou macOS:
+5. Execute o programa:
 
 ```bash
 ./gerenciador_tarefas
 ```
 
-Windows com GCC/MinGW:
+Para apagar o executável e fazer uma nova compilação completa:
+
+```bash
+make clean
+make
+```
+
+Se aparecer a mensagem `Permissão negada` ao executar, use:
+
+```bash
+chmod +x gerenciador_tarefas
+./gerenciador_tarefas
+```
+
+### No macOS
+
+1. Abra o aplicativo Terminal e entre na pasta do projeto:
+
+```bash
+cd caminho/para/gerenciador_tarefas_modular
+```
+
+2. Instale as ferramentas de linha de comando da Apple, caso ainda não estejam instaladas:
+
+```bash
+xcode-select --install
+```
+
+Uma janela do sistema será exibida. Confirme a instalação e aguarde a conclusão.
+
+3. Verifique o compilador e o Make:
+
+```bash
+clang --version
+make --version
+```
+
+4. Compile o projeto:
+
+```bash
+make
+```
+
+5. Execute o programa:
+
+```bash
+./gerenciador_tarefas
+```
+
+Para recompilar tudo:
+
+```bash
+make clean
+make
+```
+
+### Compilação manual no Linux ou macOS
+
+Se preferir não usar o Makefile, compile todos os arquivos diretamente:
+
+```bash
+gcc -Iinclude -std=c11 -Wall -Wextra -Wpedantic src/*.c -o gerenciador_tarefas
+```
+
+Depois execute:
+
+```bash
+./gerenciador_tarefas
+```
+
+## Execução no Windows
+
+Depois de compilar pelo VS Code ou pelo arquivo `compilar_windows.bat`, execute:
 
 ```powershell
 .\gerenciador_tarefas.exe
