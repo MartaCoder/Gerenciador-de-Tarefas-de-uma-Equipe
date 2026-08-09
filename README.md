@@ -17,7 +17,7 @@ Instituição: IFPI - Campus Picos
 O programa não está concentrado em um único arquivo. Cada parte possui uma responsabilidade:
 
 ```text
-gerenciador_tarefas_modular/
+gerenciador_tarefas/
 ├── include/
 │   ├── cadastro.h
 │   ├── consultas.h
